@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 
+library(huxtable)
+
 ```
 
 # PDF.extractor
@@ -19,7 +21,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of PDF.extractor is to ...
+The goal of PDF.extractor is to automate the reading of PDF lab reports by extracting relevant text into a more readable and searchable dataframe or .csv file.
 
 ## Installation
 
@@ -30,7 +32,13 @@ You can install the development version of PDF.extractor from [GitHub](https://g
 devtools::install_github("sabrina-xie/PDF.extractor")
 ```
 
-## Example
+## Required packages
+
+- pdftools: https://cran.r-project.org/web/packages/pdftools/index.html
+- stringr: https://stringr.tidyverse.org
+- dplyr: https://dplyr.tidyverse.org
+
+## Examples
 
 To extract a single case narrative, define the filepath of the relevant PDF, which can then be used as an input to case_narrative(). The function will extract each paragraph as a column in a dataframe.
 
@@ -43,4 +51,27 @@ filepath <- "~/OneDrive - New York State Office of Information Technology Servic
 # run case_narrative()
 df <- case_narrative(filepath)
 
+```
+
+```{r, echo=FALSE}
+ht <- as_hux(df)
+print_md(ht)
+```
+
+To extract multiple case narrative, define the filepath of a folder containing only the relevant PDFs, which can then be used as an input to multiple_case_narratives(). The function will extract each paragraph as a column and each sample as a row in a dataframe.
+
+```{r example2}
+library(PDF.extractor)
+
+# define filepath
+folderpath <- "/Users/sabrinaxie/OneDrive - New York State Office of Information Technology Services/OneDrive_1_12-16-2021"
+
+# run case_narrative()
+df <- multiple_case_narratives(folderpath)
+
+```
+
+```{r, echo=FALSE}
+ht <- as_hux(df)
+print_md(ht)
 ```

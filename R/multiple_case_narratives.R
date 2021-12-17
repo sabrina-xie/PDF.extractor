@@ -11,7 +11,7 @@ multiple_case_narratives <- function(folderpath) {
   list <- list.files(folderpath) #list files in folder
   setwd(folderpath) #setwd to folder
   narratives <- lapply(list,case_narrative) #apply case_narrative() to each file in folder
-  narratives <- bind_rows(narratives) #make dataframe
+  narratives <- dplyr::bind_rows(narratives) #make dataframe
   narratives$Sample <- list #add sample name
 
   return(narratives)
